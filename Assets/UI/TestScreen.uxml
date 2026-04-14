@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="root" style="width: 100%; height: 100%; align-items: center; justify-content: center;">
+        <ui:Button name="test-button" text="Click Me!" style="width: 200px; height: 80px; font-size: 24px;" />
+        <ui:Label name="result-label" text="(waiting...)" style="font-size: 20px; margin-top: 20px;" />
+    </ui:VisualElement>
+</ui:UXML>

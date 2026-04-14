@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{{ PRODUCT_NAME }}}</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; width: 100vw; height: 100vh; overflow: hidden; }
+    #unity-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="unity-canvas"></canvas>
+
+  <script src="Build/{{{ LOADER_FILENAME }}}"></script>
+  <script>
+    var canvas = document.getElementById("unity-canvas");
+
+    createUnityInstance(canvas, {
+      dataUrl:          "Build/{{{ DATA_FILENAME }}}",
+      frameworkUrl:     "Build/{{{ FRAMEWORK_FILENAME }}}",
+      codeUrl:          "Build/{{{ CODE_FILENAME }}}",
+#if MEMORY_FILENAME
+      memoryUrl:        "Build/{{{ MEMORY_FILENAME }}}",
+#endif
+#if SYMBOLS_FILENAME
+      symbolsUrl:       "Build/{{{ SYMBOLS_FILENAME }}}",
+#endif
+      streamingAssetsUrl: "StreamingAssets",
+      companyName:      "{{{ COMPANY_NAME }}}",
+      productName:      "{{{ PRODUCT_NAME }}}",
+      productVersion:   "{{{ PRODUCT_VERSION }}}",
+    }, function (progress) {
+      // 可在此顯示載入進度
+    }).then(function (unityInstance) {
+      // 暴露給 Playwright / DevTools 使用
+      window.myUnityInstance = unityInstance;
+      console.log("[UIBridge] Unity ready. window.myUnityInstance is set.");
+    }).catch(function (message) {
+      console.error("[UIBridge] Unity failed to load:", message);
+    });
+  </script>
+</body>
+</html>

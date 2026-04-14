@@ -1,0 +1,36 @@
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+*.csproj
+*.unityproj
+*.sln
+*.slnx
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+crashlytics-build.properties
+Assets/AssetStoreTools*
+.DS_Store
+
+# WebGL Build Output (太大，不放進 git)
+/glbulid/
+
+# Node.js / Playwright
+playwright/node_modules/
+playwright/test-results/
+playwright/playwright-report/
+
+/.claude
