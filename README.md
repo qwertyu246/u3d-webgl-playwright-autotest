@@ -29,6 +29,34 @@ Playwright
   -> 取得座標，page.mouse.click(x, y)
 ```
 
+```
+================================================================================
+                                  目前同步流程
+================================================================================
+
+  Playwright (Node)       JS Runtime (V8)      Unity (Wasm/C# gameloop)
+  -----------------       ---------------          ----------------
+         |                       |                        |
+  [1] 重置 Flag ----------------> [isReady = false]       |
+         |                       |                        |
+  [2] 發送指令 -----> (Instance.SendMessage) -------> [3] 執行 UI Scan
+         |                       |                        |
+  [4] Blocking 等待 <----------- (監控 isReady)            |
+  (waitForFunction)              |                        |
+         |                       |                 [5] 寫入 Linear<span style="color:inherit"> </span>Memory
+         |                       |                        |
+         |                [6] 呼叫 SendToBrowser <--------- [FFI 邊界]
+         |                       |
+         |                [7] jslib 處理：
+         |                    1. 讀取 HEAP 字串
+         |                    2. 寫入全域變數 unityUIState
+         |                    3. [isReady = true]  <-- Signal 解鎖
+         |                       |
+  [8] 解除 Blocking <------------|
+         |
+  [9] 解析UI狀態的json 執行物理點擊 (mouse.click)
+```
+
 ## 快速開始
 
 ### 1. 建立 WebGL Build
